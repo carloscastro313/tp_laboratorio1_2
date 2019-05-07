@@ -21,7 +21,8 @@ typedef struct
 void initEmployees(eEmployee[], int);
 char opciones(char[]);
 
-int crearEmpleado(eEmployee[], int);
+
+int crearEmpleado(eEmployee[], int, int);
 int buscarLibre(eEmployee[], int);
 
 void modificarEmpleado(eEmployee[], int, int);
@@ -29,14 +30,16 @@ int findEmployeeById(eEmployee[], int, int);
 void opcionesCambio(eEmployee[], int, char);
 
 int bajaEmpleado(eEmployee[], int, int);
-void removeEmployee(eEmployee[], int, int);
+int removeEmployee(eEmployee[], int, int);
 
 
 void ingresoPalabra(char[], char[]);
+void correctorPalabras(char[]);
 float ingresoNumero(char[]);
 
 void mostrarEmpleados(eEmployee[], eSectores[], int, int, int);
 void ordenaVector(eEmployee[], int);
+void ordenamiento(eEmployee[], int, int);
 int calcularSueldoSectores(eEmployee[], eSectores[], int, int);
 
 void cargarDatos(eEmployee[], eSectores[], int);

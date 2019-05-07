@@ -12,3 +12,31 @@
 	<string.h>
 	"empleados.h"
 
+1557185402 source:c:\users\carlos\desktop\tp_laboratorio_2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"empleados.h"
+
+1557185402 c:\users\carlos\desktop\tp_laboratorio_2\empleados.h
+
+1557191520 source:c:\users\carlos\desktop\tp_laboratorio_2\empleados.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"empleados.h"
+
+1556831952 source:c:\users\carlos\desktop\abm-base\main.c
+	<stdio.h>
+	<stdlib.h>
+	"empleados.h"
+
+1557184687 c:\users\carlos\desktop\abm-base\empleados.h
+
+1557185234 source:c:\users\carlos\desktop\abm-base\empleados.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"empleados.h"
+

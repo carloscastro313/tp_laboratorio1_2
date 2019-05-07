@@ -14,14 +14,14 @@ int main()
     initEmployees(arrayEmpleados, T);
 
     do{
-
+        printf("%d\n", flag);
         opcion=opciones("1.Alta\n2.Modificar\n3.Baja\n4.Informar\n5.Salir\nSeleccion:");
 
 
         switch(opcion)
         {
             case'1':
-                flag=crearEmpleado(arrayEmpleados, T);
+                flag=crearEmpleado(arrayEmpleados, T, flag);
 
             break;
             case'2':

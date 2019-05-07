@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "empleados.h"
 #define TRUE 0
 #define FALSE 1
@@ -17,6 +18,7 @@ char opciones(char mensaje[])
     return opcion;
 }
 
+
 void initEmployees(eEmployee list[], int len)
 {
     int i;
@@ -28,9 +30,10 @@ void initEmployees(eEmployee list[], int len)
     }
 }
 
-int crearEmpleado(eEmployee list[], int len)
+int crearEmpleado(eEmployee list[], int len, int flag)
 {
-    int i, flag;
+    int i;
+
     i=buscarLibre(list, len);
     if(i!=-1)
     {
@@ -39,13 +42,19 @@ int crearEmpleado(eEmployee list[], int len)
         ingresoPalabra(list[i].name, "Ingrese nombre: ");
         ingresoPalabra(list[i].lastName, "Ingrese apelldio: ");
         list[i].sector=ingresoNumero("Ingrese sector\n1.Gerente\n2.Repositor\n3.Cajero\nSelecion:");
+        while(list[i].sector!=1&&(list[i].sector!=2&&list[i].sector!=3))
+        {
+        list[i].sector=ingresoNumero("Reingrese sector\n1.Gerente\n2.Repositor\n3.Cajero\nSelecion:");
+
+        }
+
         list[i].salary=ingresoNumero("Ingrese sueldo: ");
 
         list[i].isEmpty=FALSE;
 
         system("cls");
 
-        flag=i+1;
+        flag=flag+1;
 
     }
 
@@ -153,6 +162,13 @@ void ingresoPalabra(char buffer[],char mensaje[])
     fflush(stdin);
     gets(buffer);
 
+    correctorPalabras(buffer);
+
+}
+void correctorPalabras(char buffer[])
+{
+    strlwr(buffer);
+    buffer[0]=toupper(buffer[0]);
 }
 
 float ingresoNumero(char mensaje[])
@@ -166,47 +182,68 @@ float ingresoNumero(char mensaje[])
 
 int bajaEmpleado(eEmployee list[], int len, int flag)
 {
-    int id;
+    int id, r;
 
     if(flag!=0)
     {
         id=ingresoNumero("Ingrese id: ");
-        removeEmployee(list, len, id);
-
+        r=removeEmployee(list, len, id);
+        flag=flag+r;
     }else
     {
         printf("No hay datos ingresados\n");
-
+        system("pause");
     }
 
     return flag;
 }
 
-void removeEmployee(eEmployee list[], int len, int id)
+int removeEmployee(eEmployee list[], int len, int id)
 {
-    int indice;
+    int i, loEncontro;
     char respuesta;
 
-    indice=findEmployeeById(list, len, id);
+    loEncontro=0;
 
-    if(indice!=0)
+    for(i=0; i<len; i++)
     {
-        printf("esta seguro de eliminar a %s %s de la lista?(s/n)", list[indice].name, list[indice].lastName);
+        if(id == list[i].id)
+        {
+            printf("esta seguro de eliminar a %s %s de la lista?(s/n)", list[i].name, list[i].lastName);
+            fflush(stdin);
+            scanf("%c",&respuesta);
+
+            if(respuesta=='s')
+            {
+                list[i].isEmpty=TRUE;
+                loEncontro = -1;
+            }
+
+
+            break;
+        }
+
+    }
+
+    if(loEncontro==0)
+    {
+        /*printf("esta seguro de eliminar a %s %s de la lista?(s/n)", list[indice].name, list[indice].lastName);
         fflush(stdin);
         scanf("%c",&respuesta);
 
         if(respuesta=='s')
         {
             list[indice].isEmpty=TRUE;
-
+            r=-1;
         }
 
     }else
-    {
+    {*/
         printf("No se encontro ID\n");
+        system("pause");
 
     }
-
+    return loEncontro;
 }
 void mostrarEmpleados(eEmployee listEmpleados[], eSectores listSectores[], int len, int lenS, int flag)
 {
@@ -214,27 +251,28 @@ void mostrarEmpleados(eEmployee listEmpleados[], eSectores listSectores[], int l
 
     totalEmpleados=0;
 
-    if(flag!=-1)
+    if(flag!=0)
     {
-    ordenaVector(listEmpleados, len);
-    cargarDatos(listEmpleados, listSectores, len);
-    totalEmpleados=calcularSueldoSectores(listEmpleados, listSectores, len, lenS);
-    cargarDatosSueldos(listEmpleados, listSectores, len, lenS, totalEmpleados);
-    system("pause");
+        ordenaVector(listEmpleados, len);
+        cargarDatos(listEmpleados, listSectores, len);
+        totalEmpleados=calcularSueldoSectores(listEmpleados, listSectores, len, lenS);
+        cargarDatosSueldos(listEmpleados, listSectores, len, lenS, totalEmpleados);
+        system("pause");
 
     }else
     {
-        printf("No se encontro ID\n");
+        printf("No hay datos ingresados\n");
+        system("pause");
 
     }
 
 }
 
+
 void ordenaVector(eEmployee list[] , int len)
 {
-    int i ,j, comp;
-    eEmployee aux;
-
+    int comp;
+    int i ,j;
 
     for(i=0;i<len-1;i++)
     {
@@ -244,29 +282,38 @@ void ordenaVector(eEmployee list[] , int len)
 
             if(comp==1&&list[i].sector==list[j].sector)
             {
-                strcpy(aux.name,list[i].name);
-                strcpy(list[i].name,list[j].name);
-                strcpy(list[j].name,aux.name);
-
-                strcpy(aux.lastName,list[i].lastName);
-                strcpy(list[i].lastName,list[j].lastName);
-                strcpy(list[j].lastName,aux.lastName);
-
-                aux.id=list[i].id;
-                list[i].id=list[j].id;
-                list[j].id=aux.id;
-
-                aux.sector=list[i].sector;
-                list[i].sector=list[j].sector;
-                list[j].sector=aux.sector;
-
-                aux.salary=list[i].salary;
-                list[i].salary=list[j].salary;
-                list[j].salary=aux.salary;
+                ordenamiento(list, j, i);
 
             }
         }
     }
+
+}
+
+void ordenamiento(eEmployee list[], int i, int j)
+{
+
+    eEmployee aux;
+
+        strcpy(aux.name,list[i].name);
+        strcpy(list[i].name,list[j].name);
+        strcpy(list[j].name,aux.name);
+
+        strcpy(aux.lastName,list[i].lastName);
+        strcpy(list[i].lastName,list[j].lastName);
+        strcpy(list[j].lastName,aux.lastName);
+
+        aux.id=list[i].id;
+        list[i].id=list[j].id;
+        list[j].id=aux.id;
+
+        aux.sector=list[i].sector;
+        list[i].sector=list[j].sector;
+        list[j].sector=aux.sector;
+
+        aux.salary=list[i].salary;
+        list[i].salary=list[j].salary;
+        list[j].salary=aux.salary;
 
 }
 
