@@ -38,8 +38,8 @@ void correctorPalabras(char[]);
 float ingresoNumero(char[]);
 
 void mostrarEmpleados(eEmployee[], eSectores[], int, int, int);
-void ordenaVector(eEmployee[], int);
-void ordenamiento(eEmployee[], int, int);
+void sortEmployees(eEmployee[], int, int);
+void sorting(eEmployee[], int, int);
 int calcularSueldoSectores(eEmployee[], eSectores[], int, int);
 
 void cargarDatos(eEmployee[], eSectores[], int);

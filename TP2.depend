@@ -12,14 +12,14 @@
 	<string.h>
 	"empleados.h"
 
-1557185402 source:c:\users\carlos\desktop\tp_laboratorio_2\main.c
+1557436883 source:c:\users\carlos\desktop\tp_laboratorio_2\main.c
 	<stdio.h>
 	<stdlib.h>
 	"empleados.h"
 
-1557185402 c:\users\carlos\desktop\tp_laboratorio_2\empleados.h
+1557438147 c:\users\carlos\desktop\tp_laboratorio_2\empleados.h
 
-1557191520 source:c:\users\carlos\desktop\tp_laboratorio_2\empleados.c
+1557441694 source:c:\users\carlos\desktop\tp_laboratorio_2\empleados.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
